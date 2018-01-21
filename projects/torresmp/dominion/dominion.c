@@ -648,8 +648,8 @@ int getCost(int cardNumber)
 int smithyCard(struct gameState *state, int handPos) {
   int i;
   int currentPlayer = whoseTurn(state);
-  //+3 Cards
-  for (i = 0; i < 3; i++) {
+  //Add Cards
+  for (i = 0; i <= 3; i++) {
     drawCard(currentPlayer, state);
   }
   //discard card from hand
@@ -662,7 +662,7 @@ int adventurerCard(struct gameState *state, int* temphand) {
   int currentPlayer = whoseTurn(state);
   int drawntreasure=0;
   int cardDrawn;
-  int z = 0;// this is the counter for the temp hand
+  int z = 1;// this is the counter for the temp hand
 
   while( drawntreasure < 2 ){
     if ( state->deckCount[currentPlayer] < 1 ) { //if the deck is empty we need to shuffle discard and add to deck
@@ -670,7 +670,7 @@ int adventurerCard(struct gameState *state, int* temphand) {
     }
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1]; //top card of hand is most recently drawn card.
-    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold) {
+    if (cardDrawn == copper || cardDrawn = silver || cardDrawn == gold) {
       drawntreasure++;
     }
     else {
@@ -701,7 +701,7 @@ int feastCard(struct gameState *state, int* temphand, int choice1) {
   }
 
   //Update Coins for Buy
-  updateCoins(currentPlayer, state, 5);
+  updateCoins(currentPlayer, state, 15);
   x = 1;//Condition to loop on
   while( x == 1) { //Buy one card
     if (supplyCount(choice1, state) <= 0){
@@ -746,21 +746,21 @@ int feastCard(struct gameState *state, int* temphand, int choice1) {
 int mineCard(struct gameState *state, int handPos, int choice1, int choice2) {
   int i, j;
   int currentPlayer = whoseTurn(state);
-  j = state->hand[currentPlayer][choice1];  //store card we will trash
+  j = state->hand[currentPlayer][choice2];  //store card we will trash
 
-  if (state->hand[currentPlayer][choice1] < copper || state->hand[currentPlayer][choice1] > gold) {
+  if (state->hand[currentPlayer][choice2] < copper || state->hand[currentPlayer][choice2] > gold) {
     return -1;
   }
 
-  if (choice2 > treasure_map || choice2 < curse) {
+  if (choice1 > treasure_map || choice1 < curse) {
     return -1;
   }
 
-  if ( (getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2) ) {
+  if ( (getCost(state->hand[currentPlayer][choice2]) + 3) > getCost(choice1) ) {
     return -1;
   }
 
-  gainCard(choice2, state, 2, currentPlayer);
+  gainCard(choice1, state, 2, currentPlayer);
 
   //discard card from hand
   discardCard(handPos, currentPlayer, state, 0);
