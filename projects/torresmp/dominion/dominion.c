@@ -643,6 +643,20 @@ int getCost(int cardNumber)
   return -1;
 }
 
+// Refactored card functions
+
+int smithyCard(struct gameState *state, int handPos) {
+  int i;
+  int currentPlayer = whoseTurn(state);
+  //+3 Cards
+  for (i = 0; i < 3; i++) {
+    drawCard(currentPlayer, state);
+  }
+  //discard card from hand
+  discardCard(handPos, currentPlayer, state, 0);
+  return 0;
+}
+
 int adventurerCard(struct gameState *state, int* temphand) {
 
   int currentPlayer = whoseTurn(state);
@@ -672,18 +686,6 @@ int adventurerCard(struct gameState *state, int* temphand) {
   return 0;
 }
 
-int smithyCard(struct gameState *state, int handPos) {
-  int i;
-  int currentPlayer = whoseTurn(state);
-  //+3 Cards
-  for (i = 0; i < 3; i++) {
-    drawCard(currentPlayer, state);
-  }
-  //discard card from hand
-  discardCard(handPos, currentPlayer, state, 0);
-  return 0;
-}
-
 int gardensCard() {
   return -1;
 }
@@ -697,7 +699,6 @@ int feastCard(struct gameState *state, int* temphand, int choice1) {
     temphand[i] = state->hand[currentPlayer][i];//Backup card
     state->hand[currentPlayer][i] = -1;//Set to nothing
   }
-  //Backup hand
 
   //Update Coins for Buy
   updateCoins(currentPlayer, state, 5);
