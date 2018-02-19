@@ -10,7 +10,7 @@
 #include "rngs.h"
 
 // number of test cycles to run
-#define NUMTESTS 100000
+#define NUMTESTS 10000000
 
 int main () {
 
