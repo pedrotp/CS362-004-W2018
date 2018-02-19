@@ -22,7 +22,7 @@ int main () {
   time_t t;
   srand((unsigned) time(&t));
 
-  printf ("\n**ADVENTURER CARD TEST RESULTS**\n\n");
+  printf ("\n**ADVENTURER TEST RESULTS**\n\n");
 
   for (i = 0; i < NUMTESTS; i++) {
 
@@ -41,14 +41,14 @@ int main () {
     // play adventurer
     cardEffect(adventurer, -1, -1 , -1, &G, handPos, NULL);
 
-    // hand has three more cards
+    // hand has one more card
     if (G.handCount[player] != preHand + 1) {
       test1_f++;
     } else {
       test1_p++;
     }
 
-    // deck has three fewer cards
+    // deck has two fewer cards
     if (G.deckCount[player] != preDeck - 2) {
       test2_f++;
     } else {
