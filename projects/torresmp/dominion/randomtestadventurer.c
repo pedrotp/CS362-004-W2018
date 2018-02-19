@@ -73,20 +73,20 @@ int main () {
 
   // print test results
   printf("TEST 1: 'After adding two cards and discarding adventurer, +1 cards in player's hand'\n");
-  printf("FAILED -- %d/100000 (%.2f%%)\n", test1_f, (float)test1_f / 1000.00);
-  printf("PASSED -- %d/100000 (%.2f%%)\n\n", test1_p, (float)test1_p / 1000.00);
+  printf("FAILED -- %d (%.2f%%)\n", test1_f, (float)(test1_f * 100) / (float)NUMTESTS);
+  printf("PASSED -- %d (%.2f%%)\n\n", test1_p, (float)(test1_p * 100) / (float)NUMTESTS);
 
   printf("TEST 2: 'Two cards are removed from the player's deck'\n");
-  printf("FAILED -- %d/100000 (%.2f%%)\n", test2_f, (float)test2_f / 1000.00);
-  printf("PASSED -- %d/100000 (%.2f%%)\n\n", test2_p, (float)test2_p / 1000.00);
+  printf("FAILED -- %d (%.2f%%)\n", test2_f, (float)(test2_f * 100) / (float)NUMTESTS);
+  printf("PASSED -- %d (%.2f%%)\n\n", test2_p, (float)(test2_p * 100) / (float)NUMTESTS);
 
   printf("TEST 3: 'One card added to discard pile'\n");
-  printf("FAILED -- %d/100000 (%.2f%%)\n", test3_f, (float)test3_f / 1000.00);
-  printf("PASSED -- %d/100000 (%.2f%%)\n\n", test3_p, (float)test3_p / 1000.00);
+  printf("FAILED -- %d (%.2f%%)\n", test3_f, (float)(test3_f * 100) / (float)NUMTESTS);
+  printf("PASSED -- %d (%.2f%%)\n\n", test3_p, (float)(test3_p * 100) / (float)NUMTESTS);
 
   printf("TEST 4: 'The last card discarded is adventurer'\n");
-  printf("FAILED -- %d/100000 (%.2f%%)\n", test4_f, (float)test4_f / 1000.00);
-  printf("PASSED -- %d/100000 (%.2f%%)\n\n", test4_p, (float)test4_p / 1000.00);
+  printf("FAILED -- %d (%.2f%%)\n", test4_f, (float)(test4_f * 100) / (float)NUMTESTS);
+  printf("PASSED -- %d (%.2f%%)\n\n", test4_p, (float)(test4_p * 100) / (float)NUMTESTS);
 
   return 0;
 
