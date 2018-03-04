@@ -1,0 +1,157 @@
+## BUG 1 ##
+
+Title: After playing Smithy, player is drawing two cards instead of three.
+
+Class: "Serious Bug"
+
+Date: 03/04/2018
+Reported By: Pedro Torres-Mackie
+Email: torresmp@oregonstate.edu
+
+Product: Dominion                 Version: 1.0
+Platform: Mac OSX               Version: High Sierra
+
+Is it reproducible: Yes
+
+Description
+===========
+
+After playing the Smithy card, the current player is supposed to draw three cards from their deck
+Because of an issue with a loop counter, they are only drawing two card
+The code causing the bug can be found inside the smithyEffect function, on line 684 of dominion.c
+
+Steps to Produce/Reproduce
+--------------------------
+
+1. Create a new game
+2. Make sure the current player has a Smithy card in their deck
+3. Play the smithy card
+
+Expected Results
+----------------
+
+After playing the Smithy card, the current player draws three cards
+The number of cards in the current player's hand increases by 2
+The number of cards in the current player's deck decreases by 3
+
+Actual Results
+--------------
+
+The current player is drawing just two cards, so they end up with just 1 additional card in their hand
+
+Workarounds
+-----------
+
+The Smithy card cannot be played as the code stands
+There is an easy fix for the bug, which is to set the loop counter i to 0
+
+Other Information
+-----------------
+
+RANDOMIZED TEST RESULTS FOR SMITHY:
+
+TEST 1: 'After adding three cards and discarding one, +2 cards in player's hand'
+FAILED -- 99427 (99.43%)
+PASSED -- 573 (0.57%)
+
+TEST 2: 'Three cards removed from the player's deck'
+FAILED -- 100000 (100.00%)
+PASSED -- 0 (0.00%)
+
+TEST 3: 'One card added to played cards pile'
+FAILED -- 0 (0.00%)
+PASSED -- 100000 (100.00%)
+
+TEST 4: 'The last card played is smithy'
+FAILED -- 71036 (71.04%)
+PASSED -- 28964 (28.96%)
+
+UNIT TEST RESULTS FOR SMITHY:
+
+FAILED -- After adding three cards and discarding one, +2 cards in player's hand
+FAILED -- Three cards removed from the player's deck
+PASSED -- One card added to played cards pile
+PASSED -- The last card played is smithy
+
+
+## BUG 2 ##
+
+Title: Current player is drawing an extra card after playing Council Room
+
+Class: "Serious Bug"
+
+Date: 03/04/2018
+Reported By: Pedro Torres-Mackie
+Email: torresmp@oregonstate.edu
+
+Product: Dominion                 Version: 1.0
+Platform: Mac OSX               Version: High Sierra
+
+Is it reproducible: Yes
+
+Description
+===========
+
+After playing the Council Room card, the current player is drawing a card erroneously
+The code causing the bug can be found inside the smithyEffect function, on line 737 of dominion.c
+
+Steps to Produce/Reproduce
+--------------------------
+
+1. Create a new game
+2. Make sure the current player has a Smithy card in their deck
+3. Play the smithy card
+
+Expected Results
+----------------
+
+After playing the Council Room card, every other player except the current player draws a card
+The current player does *not* draw an extra card
+At the end of the turn the number of cards in the player's hand have increased by 3
+At the end of the turn the number of cards in the player's deck have decreased by 4
+
+Actual Results
+--------------
+
+The current player is also drawing an extra card after playing Council Room
+At the end of the turn the number of cards in the player's hand have increased by 4
+At the end of the turn the number of cards in the player's deck have decreased by 5
+
+Workarounds
+-----------
+
+The Smithy card cannot be played as the code stands
+There is an easy fix for the bug, which is to create an if statement that ensures only players who are NOT the current player draw an extra card
+
+Other Information
+-----------------
+
+RANDOMIZED TEST RESULTS FOR COUNCIL ROOM:
+
+TEST 1: 'After adding four cards and discarding one, +3 cards in player's hand'
+FAILED -- 96154 (96.15%)
+PASSED -- 3846 (3.85%)
+
+TEST 2: 'Four cards removed from the player's deck'
+FAILED -- 99856 (99.86%)
+PASSED -- 144 (0.14%)
+
+TEST 3: 'One card added to played cards pile'
+FAILED -- 0 (0.00%)
+PASSED -- 100000 (100.00%)
+
+TEST 4: 'The last card played is council room'
+FAILED -- 70896 (70.90%)
+PASSED -- 29104 (29.10%)
+
+TEST 5: 'Number of buys for this turn increased to 2'
+FAILED -- 70896 (70.90%)
+PASSED -- 29104 (29.10%)
+
+UNIT TEST RESULTS FOR COUNCIL ROOM:
+
+FAILED -- After adding four cards and discarding one, +3 cards in player's hand
+FAILED -- Four cards removed from the player's deck
+PASSED -- One card added to played cards pile
+PASSED -- The last card played is council room
+PASSED -- Number of buys for this turn increased to 2
